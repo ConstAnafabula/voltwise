@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltWise | Electricity Bill Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="bolt" aria-hidden="true">&#9889;</span>
+      <div>
+        <h1>VoltWise</h1>
+        <p>Consumer Assistance Office &middot; Electricity Bill Estimator</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- INPUT FORM -->
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">Household Information</h2>
+      <form id="billForm" novalidate>
+        <div class="grid">
+          <div class="field full">
+            <label for="consumerName">Consumer's Name</label>
+            <input type="text" id="consumerName" placeholder="e.g. Juan Dela Cruz">
+          </div>
+
+          <div class="field full">
+            <label for="provider">Electricity Provider</label>
+            <input type="text" id="provider" placeholder="e.g. Iloilo 1 Electric Cooperative">
+          </div>
+
+          <div class="field">
+            <label for="prevReading">Previous Meter Reading (kWh)</label>
+            <input type="number" id="prevReading" min="0" step="any" placeholder="0">
+          </div>
+
+          <div class="field">
+            <label for="currReading">Current Meter Reading (kWh)</label>
+            <input type="number" id="currReading" min="0" step="any" placeholder="0">
+          </div>
+
+          <div class="field">
+            <label for="rate">Rate per kWh (&#8369;)</label>
+            <input type="number" id="rate" min="0" step="any" placeholder="0.00">
+          </div>
+
+          <div class="field">
+            <label for="otherCharges">Other Current Charges (&#8369;)</label>
+            <input type="number" id="otherCharges" min="0" step="any" placeholder="0.00">
+          </div>
+
+          <div class="field">
+            <label for="prevBalance">Previous Unpaid Balance (&#8369;)</label>
+            <input type="number" id="prevBalance" min="0" step="any" placeholder="0.00">
+          </div>
+
+          <div class="field">
+            <label for="payment">Payment Amount (&#8369;)</label>
+            <input type="number" id="payment" min="0" step="any" placeholder="0.00">
+          </div>
+
+          <fieldset class="field full choice">
+            <legend>Discount Eligibility</legend>
+            <label class="pill">
+              <input type="radio" name="eligibility" value="Eligible">
+              <span>Eligible</span>
+            </label>
+            <label class="pill">
+              <input type="radio" name="eligibility" value="Not Eligible" checked>
+              <span>Not Eligible</span>
+            </label>
+          </fieldset>
+        </div>
+
+        <p id="errorBox" class="error" role="alert" hidden></p>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate Bill</button>
+          <button type="button" id="resetBtn" class="btn ghost">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="card receipt" aria-labelledby="result-title" aria-live="polite">
+      <h2 id="result-title">Billing Summary</h2>
+
+      <div id="emptyState" class="empty">
+        <p>Fill out the form and press <strong>Calculate Bill</strong> to see the statement.</p>
+      </div>
+
+      <div id="results" hidden>
+        <div class="who">
+          <strong id="outName"></strong>
+          <span id="outProvider"></span>
+        </div>
+
+        <dl class="rows">
+          <div><dt>Electricity Consumption</dt><dd id="outConsumption"></dd></div>
+          <div><dt>Consumption Charge</dt><dd id="outCharge"></dd></div>
+          <div><dt>Discount</dt><dd id="outDiscount" class="minus"></dd></div>
+          <div><dt>Other Current Charges</dt><dd id="outOther"></dd></div>
+          <div class="sub"><dt>Current Bill</dt><dd id="outCurrentBill"></dd></div>
+          <div><dt>Previous Unpaid Balance</dt><dd id="outPrev"></dd></div>
+          <div class="total"><dt>Total Amount Due</dt><dd id="outTotal"></dd></div>
+          <div><dt>Payment Amount</dt><dd id="outPayment"></dd></div>
+          <div class="sub"><dt id="outBalanceLabel">Unpaid Balance</dt><dd id="outBalance"></dd></div>
+        </dl>
+
+        <div class="status-wrap">
+          <span>Payment Status</span>
+          <span id="outStatus" class="badge"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Discount: 10% of the consumption charge, up to &#8369;500.00 maximum. This is a classroom activity and does not reflect actual ERC or provider policies.</p>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+</body>
+</html>
